@@ -1,0 +1,40 @@
+flowchart TD
+    A["Session Start"] --> B["session-start.sh"]
+    B --> |"Clear cache + reminder"| C{"Tool Call"}
+
+    C --> |"Read"| D["pre-read.sh"]
+    C --> |"Bash"| H["pre-bash.sh"]
+    C --> |"Compaction"| M["post-compact.sh"]
+
+    subgraph READ ["Read Path"]
+        direction TB
+        D --> E{"Cache exists?"}
+        E --> |"No"| F["Pass through"]
+        E --> |"Yes"| G{"File changed?"}
+        G --> |"No"| G1["BLOCKED"]
+        G --> |"Yes"| G2["Diff only"]
+        F --> K["post-file-cache.sh"]
+    end
+
+    subgraph BASH ["Bash Path"]
+        direction TB
+        H --> I{"Test cmd?"}
+        I --> |"Yes"| J["Filter output"]
+        I --> |"No"| I2{"Log cmd?"}
+        I2 --> |"Yes"| I3["tail -100"]
+        I2 --> |"No"| I4["Pass through"]
+    end
+
+    M --> |"Clear all caches"| N["Ready for fresh reads"]
+
+    style A fill:#4a9eff,stroke:#2d7cd6,color:#fff
+    style B fill:#34d399,stroke:#22a877,color:#fff
+    style G1 fill:#f87171,stroke:#dc2626,color:#fff
+    style G2 fill:#fbbf24,stroke:#d97706,color:#000
+    style F fill:#34d399,stroke:#22a877,color:#fff
+    style J fill:#a78bfa,stroke:#7c3aed,color:#fff
+    style I3 fill:#a78bfa,stroke:#7c3aed,color:#fff
+    style I4 fill:#6b7280,stroke:#4b5563,color:#fff
+    style M fill:#f87171,stroke:#dc2626,color:#fff
+    style K fill:#34d399,stroke:#22a877,color:#fff
+    style N fill:#e5e7eb,stroke:#9ca3af,color:#333

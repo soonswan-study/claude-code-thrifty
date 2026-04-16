@@ -1,0 +1,29 @@
+flowchart TD
+    subgraph FIRST ["1. First Read"]
+        A1["Read file.py"] --> A2["pre-read.sh"]
+        A2 --> |"No cache"| A3["Full read"]
+        A3 --> A4["post-file-cache.sh"]
+        A4 --> A5[("Cached")]
+    end
+
+    subgraph SECOND ["2. Re-read unchanged"]
+        B1["Read file.py"] --> B2["pre-read.sh"]
+        B2 --> B3{"diff vs cache"}
+        B3 --> |"Identical"| B4["BLOCKED"]
+    end
+
+    subgraph THIRD ["3. Read after edit"]
+        C1["Edit file.py"] --> C2["post-file-cache.sh"]
+        C2 --> C2a["Cache updated"]
+        C3["Read file.py"] --> C4["pre-read.sh"]
+        C4 --> C5{"diff vs cache"}
+        C5 --> |"Changed"| C6["Diff only"]
+    end
+
+    FIRST --> SECOND
+    SECOND --> THIRD
+
+    style A5 fill:#34d399,stroke:#22a877,color:#fff
+    style A3 fill:#34d399,stroke:#22a877,color:#fff
+    style B4 fill:#f87171,stroke:#dc2626,color:#fff
+    style C6 fill:#fbbf24,stroke:#d97706,color:#000

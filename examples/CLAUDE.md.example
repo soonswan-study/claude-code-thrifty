@@ -1,0 +1,9 @@
+# Token Efficiency Principles
+
+1. Never re-read a file you already have in context. If Edit/Write succeeded, the change is applied.
+2. Avoid unnecessary tool calls. Read files directly when you know the path.
+3. Run independent tool calls in parallel, not sequentially.
+4. Delegate outputs longer than 20 lines to subagents.
+5. **Never repeat information the user already provided** (most important).
+6. Use session-injected state (git status, branch, recent commits) before re-querying. Only re-query if state changed mid-session.
+7. Run validation **once after all code changes are done**. Order: lint > build > check > test (stop on first failure).

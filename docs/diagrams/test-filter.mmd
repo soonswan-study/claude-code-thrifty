@@ -1,0 +1,12 @@
+flowchart LR
+    A["Raw Output<br/>200+ lines"] --> B["awk filter"]
+    B --> C["Filtered<br/>8 lines"]
+
+    A -.- D["session start, collected 142<br/>..x..F..x.., warnings<br/>fixtures, FAILURES<br/>traceback, summary"]
+    C -.- E["session start, collected 142<br/>..., FAILURES<br/>traceback, summary"]
+
+    style B fill:#a78bfa,stroke:#7c3aed,color:#fff
+    style A fill:#f87171,stroke:#dc2626,color:#fff
+    style C fill:#34d399,stroke:#22a877,color:#fff
+    style D fill:#fff5f5,stroke:#fca5a5,color:#333
+    style E fill:#f0fdf4,stroke:#86efac,color:#333

@@ -1,0 +1,9 @@
+flowchart TD
+    A["Read large-file.ts<br/>2847 lines"] --> B["pre-read.sh"]
+    B --> C{"offset/limit<br/>specified?"}
+    C --> |"No"| D{"lines > 1000?"}
+    D --> |"Yes"| E["BLOCKED"]
+    C --> |"Yes"| F["BYPASS<br/>skip all checks"]
+
+    style E fill:#f87171,stroke:#dc2626,color:#fff
+    style F fill:#34d399,stroke:#22a877,color:#fff
