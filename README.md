@@ -1,19 +1,21 @@
-# claude-code-thrifty
+# 🐄 cache-cow
+
+> *Your token cash cow — milk the cache, spare the tokens.*
 
 Token-saving hooks for [Claude Code](https://docs.anthropic.com/en/docs/claude-code). Reduce unnecessary token consumption by caching file reads, filtering verbose output, and blocking wasteful re-reads.
 
-## Problem
+## 🥛 The Problem
 
 Claude Code consumes tokens every time it reads a file, runs a test, or checks logs. In a typical session:
 
-- The same file gets read **3-5 times** (before edit, after edit, during review...)
-- Test runners dump **hundreds of lines** when only the summary matters
-- Log commands output **entire files** when the last 100 lines would suffice
-- Large files (1000+ lines) get read in full when only a section is needed
+- 📖 The same file gets read **3–5 times** (before edit, after edit, during review...)
+- 🧪 Test runners dump **hundreds of lines** when only the summary matters
+- 📜 Log commands output **entire files** when the last 100 lines would suffice
+- 🐘 Large files (1000+ lines) get read in full when only a section is needed
 
-**claude-code-thrifty** intercepts these patterns with Claude Code's [hook system](https://docs.anthropic.com/en/docs/claude-code/hooks) and eliminates the waste.
+**cache-cow** intercepts these patterns with Claude Code's [hook system](https://docs.anthropic.com/en/docs/claude-code/hooks) and squeezes out the waste — one cached read at a time.
 
-## How It Works
+## 🔧 How It Works
 
 | Hook | Event | What it does |
 |---|---|---|
@@ -50,7 +52,7 @@ Claude Code consumes tokens every time it reads a file, runs a test, or checks l
   <img src="docs/images/large-file-protection.png" alt="Large File Protection" width="450">
 </p>
 
-## Prerequisites
+## 📦 Prerequisites
 
 Before installing, make sure you have the following:
 
@@ -75,13 +77,13 @@ claude --version
 # Expected: 1.x.x (or similar)
 ```
 
-## Installation
+## 🚀 Installation
 
 ### Quick Install
 
 ```bash
-git clone https://github.com/soonswan-study/claude-code-thrifty.git
-cd claude-code-thrifty
+git clone https://github.com/soonswan-study/cache-cow.git
+cd cache-cow
 bash install.sh
 ```
 
@@ -104,7 +106,7 @@ The installer will:
 
 3. (Optional) Append `examples/CLAUDE.md.example` to `~/.claude/CLAUDE.md`
 
-## Verify Installation
+## ✅ Verify Installation
 
 ```bash
 # Monitor hook activity in real-time
@@ -116,18 +118,18 @@ tail -f /tmp/claude-hooks.log
 # [HH:MM:SS] pre-read: cache hit, blocked re-read (filename.py)
 ```
 
-## Updating
+## 🔄 Updating
 
 Since the installer uses symlinks, just pull the latest:
 
 ```bash
-cd claude-code-thrifty
+cd cache-cow
 git pull
 ```
 
 Hooks are updated immediately for new sessions.
 
-## Configuration
+## ⚙️ Configuration
 
 ### Large File Threshold
 
@@ -156,10 +158,10 @@ case "$FILE_PATH" in
 esac
 ```
 
-## Project Structure
+## 🗂️ Project Structure
 
 ```
-claude-code-thrifty/
+cache-cow/
 ├── hooks/                              <- Hook scripts (installed to ~/.claude/hooks/)
 │   ├── session-start.sh                   Session cache init + stale cleanup
 │   ├── pre-read.sh                        Read cache / diff-only / large file block
@@ -180,7 +182,7 @@ claude-code-thrifty/
 └── README.md
 ```
 
-## How the CLAUDE.md Helps
+## 🧠 How the CLAUDE.md Helps
 
 The included [`examples/CLAUDE.md.example`](examples/CLAUDE.md.example) teaches Claude Code to:
 - Not re-read files it already has in context
@@ -190,6 +192,10 @@ The included [`examples/CLAUDE.md.example`](examples/CLAUDE.md.example) teaches 
 
 These behavioral guidelines complement the hooks: hooks enforce limits mechanically, while `CLAUDE.md` guides the model to avoid waste proactively.
 
-## License
+## 📄 License
 
 MIT
+
+---
+
+<sub>🐄 *cache-cow — because every token you save is a token you don't pay for.*</sub>

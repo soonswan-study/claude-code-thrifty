@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-# claude-code-thrifty installer
+# cache-cow installer 🐄
 # Symlinks hooks into ~/.claude/hooks/ and merges settings into ~/.claude/settings.json
 
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -10,7 +10,7 @@ HOOKS_DST="$HOME/.claude/hooks"
 SETTINGS="$HOME/.claude/settings.json"
 CLAUDE_MD="$HOME/.claude/CLAUDE.md"
 
-echo "=== claude-code-thrifty installer ==="
+echo "=== 🐄 cache-cow installer ==="
 echo ""
 
 # 1. Check dependencies
@@ -102,5 +102,5 @@ echo "=== Verification ==="
 HOOK_COUNT=$(find "$HOOKS_DST" -name "*.sh" -type l | wc -l | tr -d ' ')
 echo "Symlinks in $HOOKS_DST: ${HOOK_COUNT}"
 echo ""
-echo "Installation complete! Start a new Claude Code session to activate."
+echo "🐄 Installation complete! Start a new Claude Code session to activate."
 echo "Monitor hooks: tail -f /tmp/claude-hooks.log"

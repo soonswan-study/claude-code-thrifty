@@ -1,4 +1,4 @@
-# Hook Documentation
+# 🐄 cache-cow Hook Documentation
 
 Detailed explanation of each hook: what problem it solves, how it works, and what the result looks like.
 
